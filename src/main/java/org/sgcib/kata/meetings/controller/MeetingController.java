@@ -4,7 +4,9 @@ import org.sgcib.kata.meetings.domain.MeetingRoomRepository;
 import org.sgcib.kata.meetings.representation.MeetingDto;
 import org.sgcib.kata.meetings.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -40,9 +42,16 @@ public class MeetingController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public MeetingDto create(@RequestParam("email") String email, @RequestParam("roomId") Long roomId, @RequestParam("date") String date, @RequestParam("duration") Integer duration) {
+    public ResponseEntity<Object> create(@RequestParam("email") String email, @RequestParam("roomId") Long roomId, @RequestParam("date") String date, @RequestParam("duration") Integer duration) {
         LocalDateTime ldt = ZonedDateTime.parse(date).toLocalDateTime();
         ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
-        return meetingService.create(email, roomId, Date.from(zdt.toInstant()), duration);
+        Date from = Date.from(zdt.toInstant());
+        MeetingDto meetingDto = meetingService.create(email, roomId, from, duration);
+        if (meetingDto != null) {
+            return new ResponseEntity<>(meetingDto, HttpStatus.CREATED);
+        } else {
+            List<Integer> availabeTimeSlots = meetingService.findAvailableTimeSlot(roomId, from, duration);
+            return new ResponseEntity<>(availabeTimeSlots, HttpStatus.CONFLICT);
+        }
     }
 }

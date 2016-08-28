@@ -6,9 +6,11 @@ import org.sgcib.kata.meetings.representation.MeetingDtoBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MeetingService {
@@ -80,14 +82,55 @@ public class MeetingService {
                     .withMainGuest(meeting.getMainGuest().getEmail())
                     .withRoomName(meeting.getMeetingRoom().getName())
                     .build();
-        } else {
-            // return all available time slots for indicated date/time
-            return null;
         }
+        return null;
     }
 
     private boolean noMeetingConflict(MeetingRoom meetingRoom, Date date, Integer duration) {
         Meeting meeting = meetingRepository.findByMeetingRoomAndReservationDateAndDuration(meetingRoom, date, duration);
         return meeting == null;
     }
+
+    public List<Integer> findAvailableTimeSlot(Long roomId, Date from, Integer duration) {
+        List<Integer> result = new ArrayList<>();
+
+        // find all meetings for room for all the day
+        List<Meeting> meetings = meetingRepository.findByMeetingRoom(meetingRoomRepository.findOne(roomId));
+
+        // target date
+        LocalDate localDate = Instant.ofEpochMilli(from.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        int ty = localDate.getYear();
+        Month tm = localDate.getMonth();
+        int tdom = localDate.getDayOfMonth();
+
+        // filter meetings for same date (no time)
+        List<Meeting> filteredMeetings = meetings.stream().filter(e -> hasSameYearMonthDay(e.getReservationDate(), ty, tm, tdom)).collect(Collectors.toList());
+
+        //
+        for (int i = 0; i < 24; i++) {
+            for (Meeting m : filteredMeetings) {
+                if (!hasSameHour(m.getReservationDate(), i)) {
+                    result.add(i);
+                }
+            }
+        }
+
+        //
+        return result;
+    }
+
+    boolean hasSameHour(Date d, int h) {
+        LocalDateTime ldt = Instant.ofEpochMilli(d.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        int hour = ldt.getHour();
+        return hour == h;
+    }
+
+    private boolean hasSameYearMonthDay(Date d, int year, Month month, int dayOfMonth) {
+        LocalDate localDate = Instant.ofEpochMilli(d.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        int y = localDate.getYear();
+        Month m = localDate.getMonth();
+        int dom = localDate.getDayOfMonth();
+        return year == y && m == month && dayOfMonth == dom;
+    }
+
 }
