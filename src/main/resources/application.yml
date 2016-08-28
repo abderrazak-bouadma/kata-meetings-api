@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: sa
+    password:
+    url: jdbc:h2:mem:meetings;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+  h2:
+    console:
+      enabled: true
+server:
+  port: 9095
