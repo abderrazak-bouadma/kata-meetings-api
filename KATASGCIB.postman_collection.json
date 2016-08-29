@@ -1,0 +1,111 @@
+{
+	"variables": [],
+	"info": {
+		"name": "KATASGCIB",
+		"_postman_id": "7d2f97d0-4354-7dec-e2b4-7a867cd5a36c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All Meetings",
+			"request": {
+				"url": "http://localhost:9095/meetings",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "All Rooms",
+			"request": {
+				"url": "http://localhost:9095/rooms",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Display Room Details",
+			"request": {
+				"url": "http://localhost:9095/rooms/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a meeting",
+			"request": {
+				"url": "http://localhost:9095/meetings/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "deletes a meeting by indicating its ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Create A Meeting",
+			"request": {
+				"url": "http://localhost:9095/meetings?email=mario@apiland.com&roomId=3&date=2016-08-31T14:00:00Z&duration=2",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
