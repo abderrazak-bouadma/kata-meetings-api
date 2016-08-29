@@ -1,6 +1,5 @@
 package org.sgcib.kata.meetings.controller;
 
-import org.sgcib.kata.meetings.domain.MeetingRoomRepository;
 import org.sgcib.kata.meetings.representation.MeetingDto;
 import org.sgcib.kata.meetings.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +19,10 @@ import java.util.List;
 public class MeetingController {
 
     private final MeetingService meetingService;
-    private final MeetingRoomRepository meetingRoomRepository;
 
     @Autowired
-    public MeetingController(MeetingService meetingService, MeetingRoomRepository meetingRoomRepository) {
+    public MeetingController(MeetingService meetingService) {
         this.meetingService = meetingService;
-        this.meetingRoomRepository = meetingRoomRepository;
     }
 
 

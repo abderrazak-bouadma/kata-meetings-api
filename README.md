@@ -15,3 +15,7 @@ mvn spring-boot:run
 ```
 
 default server port is 9095
+
+## Postman collection
+
+there's an export of a POSTMAN collection which you can use to make API calls.
