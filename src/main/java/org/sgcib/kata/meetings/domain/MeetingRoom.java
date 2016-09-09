@@ -1,17 +1,25 @@
 package org.sgcib.kata.meetings.domain;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Data
 public class MeetingRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Getter @Setter
     private Long roomId;
+    @Getter @Setter
     private String name;
+    @Getter @Setter
     private int capacity;
 
     public MeetingRoom() { //thx JPA :D
@@ -22,27 +30,4 @@ public class MeetingRoom {
         this.capacity = capacity;
     }
 
-    public Long getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
 }

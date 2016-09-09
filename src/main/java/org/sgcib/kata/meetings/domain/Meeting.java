@@ -1,5 +1,8 @@
 package org.sgcib.kata.meetings.domain;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -8,20 +11,26 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
+@Data
 public class Meeting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Getter @Setter
     private Long meetingId;
     @ManyToOne
+    @Getter @Setter
     private User mainGuest;
     @ManyToOne
+    @Getter @Setter
     private MeetingRoom meetingRoom;
     @NotNull
     @Future
+    @Getter @Setter
     private Date reservationDate;
     @NotNull
     @Range(max = 23L)
+    @Getter @Setter
     private Integer duration;
 
 
@@ -35,43 +44,4 @@ public class Meeting {
         this.duration = duration;
     }
 
-    public Long getMeetingId() {
-        return meetingId;
-    }
-
-    public void setMeetingId(Long meetingId) {
-        this.meetingId = meetingId;
-    }
-
-    public User getMainGuest() {
-        return mainGuest;
-    }
-
-    public void setMainGuest(User mainGuest) {
-        this.mainGuest = mainGuest;
-    }
-
-    public MeetingRoom getMeetingRoom() {
-        return meetingRoom;
-    }
-
-    public void setMeetingRoom(MeetingRoom meetingRoom) {
-        this.meetingRoom = meetingRoom;
-    }
-
-    public Date getReservationDate() {
-        return reservationDate;
-    }
-
-    public void setReservationDate(Date reservationDate) {
-        this.reservationDate = reservationDate;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
 }
