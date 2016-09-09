@@ -47,7 +47,7 @@ public class MeetingController {
         if (meetingDto != null) {
             return new ResponseEntity<>(meetingDto, HttpStatus.CREATED);
         } else {
-            List<Integer> availabeTimeSlots = meetingService.findAvailableTimeSlot(roomId, from, duration);
+            List<Integer> availabeTimeSlots = meetingService.findAvailableTimeSlot(roomId, from);
             return new ResponseEntity<>(availabeTimeSlots, HttpStatus.CONFLICT);
         }
     }

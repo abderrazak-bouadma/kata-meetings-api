@@ -91,7 +91,7 @@ public class MeetingService {
         return meeting == null;
     }
 
-    public List<Integer> findAvailableTimeSlot(Long roomId, Date from, Integer duration) {
+    public List<Integer> findAvailableTimeSlot(Long roomId, Date from) {
         List<Integer> result = new ArrayList<>();
 
         // find all meetings for room for all the day
@@ -119,7 +119,7 @@ public class MeetingService {
         return result;
     }
 
-    boolean hasSameHour(Date d, int h) {
+    private boolean hasSameHour(Date d, int h) {
         LocalDateTime ldt = Instant.ofEpochMilli(d.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
         int hour = ldt.getHour();
         return hour == h;
