@@ -72,12 +72,12 @@ public class SgcibKataMeetingApplication implements CommandLineRunner {
         meetingRoomRepository.save(new MeetingRoom("Paper Boy", 6));
 
         // some meetings
-        LocalDateTime ldt = LocalDateTime.of(2016, Month.AUGUST, 31, 14, 0, 0, 0);
+        LocalDateTime ldt = LocalDateTime.of(2016, Month.NOVEMBER, 30, 14, 0, 0, 0);
         ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
         Date aDay = Date.from(zdt.toInstant());
         meetingRepository.save(new Meeting(mario, marioBros, aDay, 2));
 
-        ldt = LocalDateTime.of(2016, Month.SEPTEMBER, 6, 14, 0);
+        ldt = LocalDateTime.of(2016, Month.DECEMBER, 6, 14, 0);
         zdt = ldt.atZone(ZoneId.of("UTC"));
         aDay = Date.from(zdt.toInstant());
         meetingRepository.save(new Meeting(luigi, pacMan, aDay, 2));
