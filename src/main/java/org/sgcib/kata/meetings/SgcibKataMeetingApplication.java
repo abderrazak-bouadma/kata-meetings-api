@@ -84,7 +84,7 @@ public class SgcibKataMeetingApplication implements CommandLineRunner {
     }
 
     @Bean
-    public Docket petApi() {
+    public Docket apiDocumentation() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
