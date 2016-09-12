@@ -1,5 +1,6 @@
 package org.sgcib.kata.meetings.controller;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.sgcib.kata.meetings.representation.ErrorInfo;
 import org.sgcib.kata.meetings.service.EntityNotFoundException;
 import org.sgcib.kata.meetings.service.RoomNotExistException;
@@ -17,27 +18,34 @@ public class MeetingControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
     public ErrorInfo handleEntityNotFoundException() {
-        return new ErrorInfo("0001","Entity not found","You tried to access to a resource but seems not existing or maybe deleted");
+        return new ErrorInfo("0001", "Entity not found", "You tried to access to a resource but seems not existing or maybe deleted");
     }
 
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(GenericApiException.class)
     public ErrorInfo handleGenericApiException() {
-        return new ErrorInfo("0005","Server Error","It looks that something unpredictable happened !");
+        return new ErrorInfo("0005", "Server Error", "It looks that something unpredictable happened !");
     }
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ExceptionHandler(UserNotFoundException.class)
     public ErrorInfo handleUserNotFoundException() {
-        return new ErrorInfo("0003","Server Error","User not found !");
+        return new ErrorInfo("0003", "Server Error", "User not found !");
     }
 
     @ResponseBody
     @ExceptionHandler(RoomNotExistException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorInfo handleRoomNotExistException() {
-        return new ErrorInfo("0002","Room not found","You tried to access to a room details but seems not existing or maybe deleted");
+        return new ErrorInfo("0002", "Room not found", "You tried to access to a room details but seems not existing or maybe deleted");
+    }
+
+    @ResponseBody
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorInfo handConstraintViolationException() {
+        return new ErrorInfo("1001", "Constraint Validation Exception", "one of attributes fails");
     }
 }

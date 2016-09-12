@@ -5,6 +5,7 @@ import org.sgcib.kata.meetings.representation.MeetingDto;
 import org.sgcib.kata.meetings.representation.MeetingDtoBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.*;
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class MeetingService {
      * @param duration
      * @return
      */
+    @Transactional
     public MeetingDto create(String userEmail, Long roomId, Date date, Integer duration) {
         User user = userRepository.findByEmail(userEmail);
         if (user == null)
