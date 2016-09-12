@@ -48,6 +48,7 @@ public class MeetingService {
      * @param meetingId
      * @return <code>true</code> if meeting has been correctly deleted
      */
+    @Transactional
     public boolean delete(Long meetingId) {
         Meeting meeting = meetingRepository.findOne(meetingId);
         if (meeting == null) {
